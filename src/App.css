@@ -50,6 +50,10 @@ body {
   gap: 10px;
 }
 
+.nav-brand-link {
+  text-decoration: none;
+}
+
 .nav-logo {
   width: 36px;
   height: 36px;
@@ -75,3 +79,143 @@ body {
   transition: background 0.2s, transform 0.15s;
 }
 .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.legal-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.legal-nav-links a {
+  color: var(--brown-mid);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.legal-nav-links a:hover {
+  color: var(--brown-dark);
+}
+
+.legal-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.legal-main {
+  flex: 1;
+  padding: 48px 24px 72px;
+}
+
+.legal-container {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.legal-shell {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(200, 146, 42, 0.2);
+  border-radius: 28px;
+  padding: 36px;
+  box-shadow: 0 24px 70px rgba(61, 31, 0, 0.08);
+}
+
+.legal-eyebrow {
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.legal-title {
+  margin-top: 14px;
+  color: var(--brown-dark);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+}
+
+.legal-meta {
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.legal-intro {
+  margin-top: 20px;
+  color: var(--text);
+  font-size: 1.04rem;
+}
+
+.legal-section {
+  margin-top: 30px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(200, 146, 42, 0.16);
+}
+
+.legal-section h2 {
+  margin-bottom: 12px;
+  color: var(--brown-dark);
+  font-size: 1.25rem;
+}
+
+.legal-block + .legal-block {
+  margin-top: 18px;
+}
+
+.legal-block h3 {
+  margin-bottom: 8px;
+  color: var(--brown-mid);
+  font-size: 1rem;
+}
+
+.legal-section p,
+.legal-section li {
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.legal-section p + p,
+.legal-section p + ul,
+.legal-section ul + p {
+  margin-top: 12px;
+}
+
+.legal-section ul {
+  padding-left: 20px;
+}
+
+.legal-link,
+.legal-home-link {
+  color: var(--brown-mid);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.legal-link:hover,
+.legal-home-link:hover {
+  color: var(--brown-dark);
+}
+
+@media (max-width: 720px) {
+  .nav-inner {
+    padding: 14px 18px;
+  }
+
+  .legal-nav-links {
+    gap: 12px;
+  }
+
+  .legal-main {
+    padding: 28px 16px 48px;
+  }
+
+  .legal-shell {
+    padding: 24px 18px;
+    border-radius: 22px;
+  }
+}
