@@ -42,6 +42,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 18px;
 }
 
 .nav-brand {
@@ -79,6 +80,23 @@ body {
   transition: background 0.2s, transform 0.15s;
 }
 .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-link {
+  color: var(--brown-mid);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.nav-link:hover {
+  color: var(--brown-dark);
+}
 
 .legal-nav-links {
   display: flex;
@@ -204,6 +222,10 @@ body {
 @media (max-width: 720px) {
   .nav-inner {
     padding: 14px 18px;
+  }
+
+  .nav-actions {
+    gap: 10px;
   }
 
   .legal-nav-links {

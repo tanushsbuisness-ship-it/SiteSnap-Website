@@ -4,6 +4,7 @@ import Features from './components/Features'
 import HowItWorks from './components/HowItWorks'
 import Footer from './components/Footer'
 import ProjectViewer from './components/ProjectViewer'
+import ProjectAccess from './components/ProjectAccess'
 import './App.css'
 
 const SUPPORT_EMAIL = 'tanushsbuisness@gmail.com'
@@ -283,9 +284,14 @@ function Nav({ legalMode = false }) {
             <a href="/account-deletion">Account deletion</a>
           </div>
         ) : (
-          <a className="nav-cta" href="#download">
-            Download
-          </a>
+          <div className="nav-actions">
+            <a className="nav-link" href="#projects">
+              Projects
+            </a>
+            <a className="nav-cta" href="#download">
+              Download
+            </a>
+          </div>
         )}
       </div>
     </nav>
@@ -432,6 +438,7 @@ function HomePage() {
     <div className="app">
       <Nav />
       <Hero />
+      <ProjectAccess />
       <Features />
       <HowItWorks />
       <Footer />
@@ -462,6 +469,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/projects" element={<HomePage />} />
+        <Route path="/projects/:projectId" element={<ProjectViewer />} />
         <Route path="/project/:token" element={<ProjectViewer />} />
         <Route path="/privacy-policy" element={<PrivacyPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
