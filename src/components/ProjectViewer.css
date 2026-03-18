@@ -221,6 +221,36 @@
   gap: 20px;
 }
 
+.folder-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.folder-section .photos-grid {
+  margin-top: 16px;
+}
+
+.folder-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(200, 146, 42, 0.25);
+}
+
+.folder-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+  letter-spacing: 0.01em;
+}
+
+.folder-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 .photo-card {
   appearance: none;
   padding: 0;

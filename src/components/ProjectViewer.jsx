@@ -164,6 +164,54 @@ export default function ProjectViewer() {
   const getTagColor = (tag) => TAG_COLORS[tag] || '#6e6a63'
   const getCustomTagColor = (colorName) => CUSTOM_TAG_COLORS[colorName] || '#6e6a63'
 
+  const hasFolders = project?.photos?.some((p) => p.subfolderName)
+
+  const folderGroups = hasFolders
+    ? Object.entries(
+        (project.photos ?? []).reduce((acc, photo) => {
+          const key = photo.subfolderName || 'General'
+          ;(acc[key] = acc[key] || []).push(photo)
+          return acc
+        }, {}),
+      ).sort(([a], [b]) => {
+        if (a === 'General') return 1
+        if (b === 'General') return -1
+        return a.localeCompare(b)
+      })
+    : []
+
+  const renderPhotoCard = (photo) => (
+    <button
+      key={photo.id}
+      type="button"
+      className="photo-card"
+      onClick={() => setLightboxImage(photo.annotatedImageURL || photo.fullURL || photo.imageURL || photo.thumbnailURL)}
+    >
+      <div className="photo-thumb-wrapper">
+        <img src={photo.annotatedImageURL || photo.thumbnailURL || photo.fullURL || photo.imageURL} alt="Project photo" loading="lazy" />
+        {photo.annotatedImageURL && <span className="annotation-badge" title="Annotated">✏️</span>}
+      </div>
+      <div className="photo-info">
+        <div className="photo-date">
+          {formatDate(photo.timestamp)} at {formatTime(photo.timestamp)}
+        </div>
+        <div className="photo-tag-row">
+          {photo.tag && (
+            <span className="photo-tag" style={{ backgroundColor: getTagColor(photo.tag) }}>
+              {photo.tag}
+            </span>
+          )}
+          {photo.customTag && (
+            <span className="photo-tag" style={{ backgroundColor: getCustomTagColor(photo.customTagColor) }}>
+              {photo.customTag}
+            </span>
+          )}
+        </div>
+        {photo.notes && <div className="photo-notes">{photo.notes}</div>}
+      </div>
+    </button>
+  )
+
   if (loading) {
     return (
       <div className="project-viewer">
@@ -246,39 +294,25 @@ export default function ProjectViewer() {
         </div>
 
         {project.photos && project.photos.length > 0 ? (
-          <div className="photos-grid">
-            {project.photos.map((photo) => (
-              <button
-                key={photo.id}
-                type="button"
-                className="photo-card"
-                onClick={() => setLightboxImage(photo.annotatedImageURL || photo.fullURL || photo.imageURL || photo.thumbnailURL)}
-              >
-                <div className="photo-thumb-wrapper">
-                  <img src={photo.annotatedImageURL || photo.thumbnailURL || photo.fullURL || photo.imageURL} alt="Project photo" loading="lazy" />
-                  {photo.annotatedImageURL && <span className="annotation-badge" title="Annotated">✏️</span>}
-                </div>
-                <div className="photo-info">
-                  <div className="photo-date">
-                    {formatDate(photo.timestamp)} at {formatTime(photo.timestamp)}
+          hasFolders ? (
+            <div className="folder-sections">
+              {folderGroups.map(([folder, photos]) => (
+                <div key={folder} className="folder-section">
+                  <div className="folder-header">
+                    <span className="folder-name">{folder}</span>
+                    <span className="folder-count">{photos.length} photo{photos.length !== 1 ? 's' : ''}</span>
                   </div>
-                  <div className="photo-tag-row">
-                    {photo.tag && (
-                    <span className="photo-tag" style={{ backgroundColor: getTagColor(photo.tag) }}>
-                      {photo.tag}
-                    </span>
-                  )}
-                  {photo.customTag && (
-                    <span className="photo-tag" style={{ backgroundColor: getCustomTagColor(photo.customTagColor) }}>
-                      {photo.customTag}
-                    </span>
-                  )}
+                  <div className="photos-grid">
+                    {photos.map((photo) => renderPhotoCard(photo))}
                   </div>
-                  {photo.notes && <div className="photo-notes">{photo.notes}</div>}
                 </div>
-              </button>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="photos-grid">
+              {project.photos.map((photo) => renderPhotoCard(photo))}
+            </div>
+          )
         ) : (
           <div className="empty-state">
             <p>No photos in this shared project yet.</p>
